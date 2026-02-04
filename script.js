@@ -9,7 +9,17 @@ const modal = document.getElementById("country-modal");
 const modalDetails = document.getElementById("modal-details");
 const modalWeather = document.getElementById("modal-weather");
 const closeBtn = document.querySelector(".close");
+const searchInput = document.getElementById("search-input");
 const ACCUWEATHER_API_KEY = window.ENV ? window.ENV.accuweather_api_key : "";
+
+searchInput.addEventListener("input", (e) => {
+  const searchTerm = e.target.value.toLowerCase();
+  filteredCountries = allCountries.filter(country =>
+    country.name.common.toLowerCase().includes(searchTerm)
+  );
+  currentPage = 1;
+  renderGrid();
+});
 fetch(url)
   .then(res => res.json())
   .then(data => {
